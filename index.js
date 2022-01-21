@@ -1,19 +1,43 @@
 const inquirer = require('inquirer');
 const fs = require('fs');
 
+let userData = []
+
 
 inquirer
-    .prompt([
-        {
+.prompt([
+    {
             type: 'input',
             message: 'What is your Name?',
             name: 'username',
         },
-
+        
     ])
     .then((response) => {
-        console.log(response)
+        fs.readFile('test.txt', 'utf-8', (err, data) => {
+            if (err) {
+                throw err
+            }
+            userData = data
+            // console.log(userData)
+        })
+
+        fs.appendFile('test.txt', `\n${response.username}`, (err) => {
+            if (err) {
+                throw err
+            }
+        })
+
+        // console.log("==========")
+        // console.log(response.username)
     });
+
+
+
+    // function writeInfo(data){
+
+
+    // }
 
 
 
